@@ -3,26 +3,31 @@ package com.example.cursoalgaworksfullstack.model;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import java.util.Objects;
 
 @Entity
-@Table(name = "categoria")
-public class Categoria {
+@Table(name = "pessoa")
+public class Pessoa {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long codigo;
 
     @NotNull
-    @Size(min = 1,
+    @Size(min = 3,
         max = 50)
     private String nome;
 
-    public Long getCodigo() {
+    @NotNull
+    private boolean ativo;
+
+    @Embedded
+    private Endereco endereco;
+
+    public Long getcodigo() {
         return codigo;
     }
 
-    public void setCodigo(Long codigo) {
+    public void setcodigo(Long codigo) {
         this.codigo = codigo;
     }
 
@@ -34,16 +39,19 @@ public class Categoria {
         this.nome = nome;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Categoria categoria = (Categoria) o;
-        return Objects.equals(codigo, categoria.codigo);
+    public boolean isAtivo() {
+        return ativo;
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(codigo);
+    public void setAtivo(boolean ativo) {
+        this.ativo = ativo;
+    }
+
+    public Endereco getEndereco() {
+        return endereco;
+    }
+
+    public void setEndereco(Endereco endereco) {
+        this.endereco = endereco;
     }
 }
