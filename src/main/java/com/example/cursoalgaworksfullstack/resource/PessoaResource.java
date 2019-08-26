@@ -39,9 +39,15 @@ public class PessoaResource {
         return ResponseEntity.status(HttpStatus.CREATED).body(pessoaSalva);
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<?> buscarPeloId(@PathVariable Long id){
-        Optional<Pessoa> pessoaRetornada = pessoaRepository.findById(id);
+    @GetMapping("/{codigo}")
+    public ResponseEntity<?> buscarPeloId(@PathVariable Long codigo){
+        Optional<Pessoa> pessoaRetornada = pessoaRepository.findById(codigo);
         return pessoaRetornada.isPresent() ? ResponseEntity.ok(pessoaRetornada) : ResponseEntity.noContent().build();
+    }
+
+    @DeleteMapping("/{codigo}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void remover(@PathVariable Long codigo){
+        pessoaRepository.deleteById(codigo);
     }
 }
